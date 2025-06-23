@@ -18,10 +18,6 @@
 
 DECLARE_string(custom_tbb_parallel_control);
 
-namespace varch {
-namespace tools {
-namespace determinism {
-
 struct ThreadContext {
   int thread_id;
   std::string task_name;
@@ -139,14 +135,10 @@ void TBBManager::ParallelFor(const std::string& tbb_name,
   });
 }
 
-#define VOY_ARENA_TBB_WITH_GFLAGS_PARALLEL_FOR(gflagsName, ...)       \
+#define ARENA_TBB_WITH_GFLAGS_PARALLEL_FOR(gflagsName, ...)       \
   do {                                                                \
-    varch::tools::determinism::TBBManager::GetInstance().ParallelFor( \
+    TBBManager::GetInstance().ParallelFor( \
         #gflagsName, __VA_ARGS__);                                    \
   } while (0)
-
-}  // namespace determinism
-}  // namespace tools
-}  // namespace varch
 
 #endif  // TBB_MANAGER_H_
